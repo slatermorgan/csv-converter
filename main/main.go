@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	file, err := os.Open("products.csv")
+	file, err := os.Open("../products.csv")
 	reader := csv.NewReader(file)
 	reader.LazyQuotes = true
 

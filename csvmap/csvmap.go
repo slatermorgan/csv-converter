@@ -19,7 +19,7 @@ type ItemCategory struct {
 	PLU      string `json: "PLU"`
 	Name     string `json: "name"`
 	Sizes    []Item `json: "sizes"`
-	SizeSort string
+	SizeSort string `json:"-"`
 }
 
 type Item struct {

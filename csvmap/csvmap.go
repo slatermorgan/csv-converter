@@ -3,7 +3,6 @@ package csvmap
 import (
 	"encoding/json"
     "fmt"
-	"github.com/slatermorgan/csv-conv/sizesorter"
 )
 
 type CsvMap map[string]ItemCategory
@@ -20,6 +19,7 @@ type ItemCategory struct {
 	PLU   string `json: "PLU"`
 	Name  string `json: "name"`
 	Sizes []Item `json: "sizes"`
+	SizeSort string
 }
 
 type Item struct {
@@ -43,6 +43,7 @@ func (this CsvMap) CreateNewCategory(product Product, item Item) CsvMap {
 		PLU:   product.PLU,
 		Name:  product.Name,
 		Sizes: []Item{item},
+		SizeSort: product.SizeSort,
 	}
 
 	this[product.PLU] = itemCategory
@@ -61,7 +62,6 @@ func (this CsvMap) ToJSON() string {
 	if err != nil {
 		fmt.Printf("Error: %s", err.Error())
 	}
-	fmt.Println(sizesorter.Hello("silly"))
 
 	return string(json)
 }

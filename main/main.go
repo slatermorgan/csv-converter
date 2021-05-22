@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
     "github.com/slatermorgan/csv-conv/csvmap"
+	"github.com/slatermorgan/csv-conv/sizesorter"
 	"strings"
 )
 
@@ -53,6 +54,7 @@ func main() {
 		}
 	}
 
+	fmt.Println(sizesorter.Sort(productMap))
 	fmt.Println(productMap.ToJSON())
 }
 

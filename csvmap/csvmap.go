@@ -57,7 +57,12 @@ func (this CsvMap) IsInMap(product Product) bool {
 }
 
 func (this CsvMap) ToJSON() string {
-	json, err := json.Marshal(this)
+	var cleanJson []ItemCategory
+	for _, itemCategory := range this {
+		cleanJson = append(cleanJson, itemCategory)
+	}
+
+	json, err := json.Marshal(cleanJson)
 
 	if err != nil {
 		fmt.Printf("Error: %s", err.Error())

@@ -54,8 +54,7 @@ func main() {
 		}
 	}
 
-	fmt.Println(sizesorter.Sort(productMap))
-	fmt.Println(productMap.ToJSON())
+	fmt.Println(sizesorter.Sort(productMap).ToJSON())
 }
 
 func removeQuotes(str string) string {

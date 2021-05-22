@@ -18,7 +18,7 @@ func Sort(csvmap csvmap.CsvMap) csvmap.CsvMap {
 			case " SHOE_EU":
 				sortShoeEU(itemCategory.Sizes)
 			case " CLOTHING_SHORT":
-				sortClothingShort(itemCategory.Sizes)
+				sortClothingSort(itemCategory.Sizes)
 			default:
 				message := fmt.Sprintf(
 					"Unsupported sort type: %v",
@@ -39,20 +39,36 @@ func sortShoeUK(itemMap []csvmap.Item) []csvmap.Item {
 func sortShoeEU(itemMap []csvmap.Item) []csvmap.Item {
 
 	sort.SliceStable(itemMap, func(i, j int) bool {
-		iSize, err := strconv.Atoi(strings.TrimSpace(itemMap[i].Size))
-		jSize, err := strconv.Atoi(strings.TrimSpace(itemMap[j].Size))
+		iSizeInt, err := strconv.Atoi(strings.TrimSpace(itemMap[i].Size))
+		jSizeInt, err := strconv.Atoi(strings.TrimSpace(itemMap[j].Size))
 
 		if err != nil {
 			fmt.Println(err)
 		}
 
-    	return iSize < jSize
+    	return iSizeInt < jSizeInt
 	})
 
 	return itemMap
 }
-func sortClothingShort(itemMap []csvmap.Item) []csvmap.Item {
+func sortClothingSort(itemMap []csvmap.Item) []csvmap.Item {
+	sizeLetterMap := map[string]int{
+		"XS": 1,
+		"S": 2,
+		"M": 3,
+		"L": 4,
+		"XL": 5,
+		"XXL": 6,
+		"XXXL": 7,
+		"XXXXL": 8,
+	}
 
-    fmt.Println("sortClothingShort")
+	sort.SliceStable(itemMap, func(i, j int) bool {
+		iSize := strings.TrimSpace(itemMap[i].Size)
+		jSize := strings.TrimSpace(itemMap[j].Size)
+
+    	return sizeLetterMap[iSize] < sizeLetterMap[jSize]
+	})
+
 	return itemMap
 }

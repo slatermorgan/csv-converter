@@ -3,6 +3,7 @@ package csvmap
 import (
 	"encoding/json"
     "fmt"
+	"github.com/slatermorgan/csv-conv/sizesorter"
 )
 
 type CsvMap map[string]ItemCategory
@@ -60,6 +61,7 @@ func (this CsvMap) ToJSON() string {
 	if err != nil {
 		fmt.Printf("Error: %s", err.Error())
 	}
+	fmt.Println(sizesorter.Hello("silly"))
 
 	return string(json)
 }

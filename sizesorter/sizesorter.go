@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"strings"
 	"sort"
+	"log"
 	"github.com/slatermorgan/csv-conv/csvmap"
 )
 
@@ -33,8 +34,30 @@ func Sort(csvmap csvmap.CsvMap) csvmap.CsvMap {
 
 func sortShoeUK(itemMap []csvmap.Item) []csvmap.Item {
 
-    fmt.Println("sortShoeUK")
+	sort.SliceStable(itemMap, func(i, j int) bool {
+    	return getUKSizeFloat(itemMap[i].Size) < getUKSizeFloat(itemMap[j].Size)
+	})
+
 	return itemMap
+}
+func getUKSizeFloat(size string) float64 {
+	isChildSize := strings.Contains(size, "(Child)")
+
+	if isChildSize {
+		size = strings.Replace(size, "(Child)", "", -1)
+	}
+
+	float, err := strconv.ParseFloat(strings.TrimSpace(size), 32);
+
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	if isChildSize {
+		return float / 100
+	}
+
+	return float
 }
 func sortShoeEU(itemMap []csvmap.Item) []csvmap.Item {
 

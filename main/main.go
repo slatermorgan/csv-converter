@@ -1,10 +1,12 @@
 package main
+
 import (
     "fmt"
 	"encoding/csv"
 	"io"
 	"log"
 	"os"
+    "github.com/slatermorgan/csv-conv/csvmap"
 )
 
 func main() {
@@ -43,4 +45,13 @@ func main() {
 			Size: product.Size,
 		}
 
+		if productMap.IsInMap(product) {
+			productMap.AddItemSize(product, item)
+		} else {
+			productMap.CreateNewCategory(product, item)
+		}
+	}
+
+	fmt.Println(productMap)
+	// fmt.Println(csvmap.toJSON())
 }

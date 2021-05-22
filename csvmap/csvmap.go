@@ -1,5 +1,10 @@
 package csvmap
 
+import (
+	"encoding/json"
+    "fmt"
+)
+
 type CsvMap map[string]ItemCategory
 
 type Product struct {
@@ -11,14 +16,14 @@ type Product struct {
 }
 
 type ItemCategory struct {
-	PLU   string
-	name  string
-	sizes []Item
+	PLU   string `json: "PLU"`
+	Name  string `json: "name"`
+	Sizes []Item `json: "sizes"`
 }
 
 type Item struct {
-	SKU  string
-	Size string
+	SKU  string `json: "SKU"`
+	Size string `json: "size"`
 }
 
 func (this CsvMap) AddItemSize(product Product, item Item) CsvMap {
@@ -28,15 +33,15 @@ func (this CsvMap) AddItemSize(product Product, item Item) CsvMap {
 }
 
 func (itemCat ItemCategory) add(item Item) ItemCategory {
-	itemCat.sizes = append(itemCat.sizes, item)
+	itemCat.Sizes = append(itemCat.Sizes, item)
 	return itemCat
 }
 
 func (this CsvMap) CreateNewCategory(product Product, item Item) CsvMap {
 	itemCategory := ItemCategory{
 		PLU:   product.PLU,
-		name:  product.Name,
-		sizes: []Item{item},
+		Name:  product.Name,
+		Sizes: []Item{item},
 	}
 
 	this[product.PLU] = itemCategory
@@ -47,4 +52,14 @@ func (this CsvMap) CreateNewCategory(product Product, item Item) CsvMap {
 func (this CsvMap) IsInMap(product Product) bool {
 	_, isInMap := this[product.PLU]
 	return isInMap
+}
+
+func (this CsvMap) ToJSON() string {
+	json, err := json.Marshal(this)
+
+	if err != nil {
+		fmt.Printf("Error: %s", err.Error())
+	}
+
+	return string(json)
 }

@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
     "github.com/slatermorgan/csv-conv/csvmap"
+	"strings"
 )
 
 func main() {
@@ -35,8 +36,8 @@ func main() {
 		product := csvmap.Product{
 			SKU:      line[0],
 			PLU:      line[1],
-			Name:     line[2],
-			Size:     line[3],
+			Name:     removeQuotes(line[2]),
+			Size:     removeQuotes(line[3]),
 			SizeSort: line[4],
 		}
 
@@ -52,6 +53,9 @@ func main() {
 		}
 	}
 
-	fmt.Println(productMap)
-	// fmt.Println(csvmap.toJSON())
+	fmt.Println(productMap.ToJSON())
+}
+
+func removeQuotes(str string) string {
+	return strings.Replace(str, "\"", "", -1)
 }

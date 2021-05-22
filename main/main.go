@@ -1,13 +1,13 @@
 package main
 
 import (
-    "fmt"
 	"encoding/csv"
+	"fmt"
+	"github.com/slatermorgan/csv-conv/csvmap"
+	"github.com/slatermorgan/csv-conv/sizesorter"
 	"io"
 	"log"
 	"os"
-    "github.com/slatermorgan/csv-conv/csvmap"
-	"github.com/slatermorgan/csv-conv/sizesorter"
 	"strings"
 )
 

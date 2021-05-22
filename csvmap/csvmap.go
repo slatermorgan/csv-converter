@@ -2,7 +2,7 @@ package csvmap
 
 import (
 	"encoding/json"
-    "fmt"
+	"fmt"
 )
 
 type CsvMap map[string]ItemCategory
@@ -16,9 +16,9 @@ type Product struct {
 }
 
 type ItemCategory struct {
-	PLU   string `json: "PLU"`
-	Name  string `json: "name"`
-	Sizes []Item `json: "sizes"`
+	PLU      string `json: "PLU"`
+	Name     string `json: "name"`
+	Sizes    []Item `json: "sizes"`
 	SizeSort string
 }
 
@@ -40,9 +40,9 @@ func (itemCat ItemCategory) add(item Item) ItemCategory {
 
 func (this CsvMap) CreateNewCategory(product Product, item Item) CsvMap {
 	itemCategory := ItemCategory{
-		PLU:   product.PLU,
-		Name:  product.Name,
-		Sizes: []Item{item},
+		PLU:      product.PLU,
+		Name:     product.Name,
+		Sizes:    []Item{item},
 		SizeSort: product.SizeSort,
 	}
 

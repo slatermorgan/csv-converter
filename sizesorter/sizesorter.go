@@ -50,15 +50,6 @@ func calcSortElements(
 			return float64(0), float64(0)
 	}
 }
-
-func sortShoeUK(itemMap []csvmap.Item) []csvmap.Item {
-
-	sort.SliceStable(itemMap, func(i, j int) bool {
-		return getUKSizeFloat(itemMap[i].Size) < getUKSizeFloat(itemMap[j].Size)
-	})
-
-	return itemMap
-}
 func getUKSizeFloat(size string) float64 {
 	isChildSize := strings.Contains(size, "(Child)")
 

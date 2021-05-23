@@ -3,5 +3,5 @@
 
 1) Navigate to the root of the project directory.
 1) Ensure ```products.csv``` is in the root of the directory.
-1) Navigate ```/main```.
+1) Navigate to ```/main```.
 2) run ```go run *.go```.

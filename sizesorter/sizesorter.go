@@ -13,11 +13,11 @@ func Sort(csvmap csvmap.CsvMap) csvmap.CsvMap {
 
 	for _, itemCategory := range csvmap {
 		itemMap := itemCategory.Sizes
-		sizeSort := strings.TrimSpace(itemCategory.SizeSort)
+		sizeSort := itemCategory.SizeSort
 
 		sort.SliceStable(itemMap, func(iIndex, jIndex int) bool {
-			iSizeField := strings.TrimSpace(itemMap[iIndex].Size)
-			jSizeField := strings.TrimSpace(itemMap[jIndex].Size)
+			iSizeField := itemMap[iIndex].Size
+			jSizeField := itemMap[jIndex].Size
 
 			i, j := calcSortElements(iSizeField, jSizeField, sizeSort)
 
@@ -63,10 +63,10 @@ func getUKSizeFloat(size string) float64 {
 	isChildSize := strings.Contains(size, "(Child)")
 
 	if isChildSize {
-		size = strings.Replace(size, "(Child)", "", -1)
+		size = strings.Replace(size, " (Child)", "", -1)
 	}
 
-	float, err := strconv.ParseFloat(strings.TrimSpace(size), 32)
+	float, err := strconv.ParseFloat(size, 64)
 
 	if err != nil {
 		log.Fatal(err)
@@ -101,5 +101,5 @@ func getClothingSizeFloat(size string) float64 {
 		"XXXXL": 8,
 	}
 
-	return sizeLetterMap[strings.TrimSpace(size)]
+	return sizeLetterMap[size]
 }

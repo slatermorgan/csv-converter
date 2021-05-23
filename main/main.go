@@ -38,8 +38,8 @@ func main() {
 			SKU:      line[0],
 			PLU:      line[1],
 			Name:     removeQuotes(line[2]),
-			Size:     removeQuotes(line[3]),
-			SizeSort: line[4],
+			Size:     strings.TrimSpace(removeQuotes(line[3])),
+			SizeSort: strings.TrimSpace(line[4]),
 		}
 
 		item := csvmap.Item{
